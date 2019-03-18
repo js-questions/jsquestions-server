@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
+  const tableName = 'questions';
   const Question = sequelize.define('Question', {
     questionId: {
       type: DataTypes.INTEGER,
@@ -25,10 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       default: false,
     },
     roomId: DataTypes.UUID,
-  }, {});
+  }, { tableName });
   Question.associate = (models) => {
-    Question.belongsTo(models.User, { as: 'learner', foreignKey: 'userId' });
-    Question.hasMany(models.Offer, { as: 'linkedQuestion', foreignKey: 'questionId' });
+    Question.belongsTo(models.User, { foreignKey: 'learner', targetKey: 'userId' });
+    Question.hasMany(models.Offer, { constraints: false, foreignKey: 'linkedQuestion', targetKey: 'questionId' });
   };
   return Question;
 };

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       user.password = await bcrypt.hash(user.password, process.env.SALT);
     },
   };
-
+  const tableName = 'users';
   const User = sequelize.define('User', {
     userId: {
       type: DataTypes.INTEGER,
@@ -43,10 +43,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     available: DataTypes.BOOLEAN,
     profileBadge: DataTypes.STRING
-  }, { hooks });
+  }, { hooks, tableName });
 
   User.associate = (models) => {
-    User.hasMany(models.Offer, { as: 'tutor', foreignKey: 'userId'});
+    User.hasMany(models.Offer, { foreignKey: 'tutor', targetKey: 'userId' });
   };
 
   return User;

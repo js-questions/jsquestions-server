@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
+  const tableName = 'offers';
   const Offer = sequelize.define('Offer', {
     offerId: {
       type: DataTypes.INTEGER,
@@ -16,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       default: false,
     }
-  }, {});
+  }, { tableName });
 
   Offer.associate = (models) => {
-    Offer.hasOne(models.Question, { as: 'answeredBy', foreignKey: 'offerId' })
+    Offer.hasOne(models.Question, { foreignKey: 'answeredBy', targetKey: 'offerId' })
   };
 
   return Offer;
