@@ -1,17 +1,34 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Question = sequelize.define('Question', {
-    answerBy: DataTypes.STRING,
-    learner: DataTypes.STRING,
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
+    questionId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    answeredBy: DataTypes.INTEGER,
+    learner: DataTypes.INTEGER,
+    title:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     resources: DataTypes.STRING,
     code: DataTypes.STRING,
-    answered: DataTypes.BOOLEAN,
-    roomId: DataTypes.UUID
+    answered: {
+      type: DataTypes.BOOLEAN,
+      default: false,
+    },
+    roomId: DataTypes.UUID,
   }, {});
-  Question.associate = function(models) {
-    // associations can be defined here
+  Question.associate = (models) => {
+    Question.belongsTo(models.User, { as: 'learner', foreignKey: 'userId' });
+    Question.hasMany(models.Offer, { as: 'linkedQuestion', foreignKey: 'questionId' });
   };
   return Question;
 };

@@ -1,18 +1,53 @@
 'use strict';
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
+  const hooks = {
+    async beforeCreate (user) {
+      user.password = await bcrypt.hash(user.password, process.env.SALT);
+    },
+  };
+
   const User = sequelize.define('User', {
-    username: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    username: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    credits: DataTypes.INTEGER,
-    karma: DataTypes.INTEGER,
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    credits: {
+      type: DataTypes.INTEGER,
+      default: 0,
+      allowNull: false,
+    },
+    karma: {
+      type: DataTypes.INTEGER,
+      default: 0,
+      allowNull: false,
+    },
     available: DataTypes.BOOLEAN,
     profileBadge: DataTypes.STRING
-  }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+  }, { hooks });
+
+  User.associate = (models) => {
+    User.hasMany(models.Offer, { as: 'tutor', foreignKey: 'userId'});
   };
+
   return User;
 };

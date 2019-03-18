@@ -26,6 +26,7 @@
     "sequelize-cli": "^5.4.0"
   },
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "sequelize": "^5.1.0"
   }
 }
