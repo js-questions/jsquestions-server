@@ -31,7 +31,7 @@ This runs a container with PostgreSQL (v11). It passes 3 enviroment variables:
 - user name 'suelings',
 - user password 'suelings'
 
-It alse binds the port 5432 of the container with the port 5432 of the local machine.
+It also binds the port 5432 of the container with the port 5432 of the local machine.
 
 ** For now we don't have any persistent data
 
@@ -41,4 +41,9 @@ It alse binds the port 5432 of the container with the port 5432 of the local mac
 docker exec -it [CONTAINER ID] psql -U suelings js-questions-dev
 ```
 
-** Replace [CONTAINER ID] for the ID of the PostgreSQL container.
+Replace [CONTAINER ID] for the ID of the PostgreSQL container.
+To get the containerID you need to run:
+
+```bash
+docker ps
+```
