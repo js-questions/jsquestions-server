@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     expiration: DataTypes.DATE,
     rejected: {
       type: DataTypes.BOOLEAN,
-      default: false,
+      defaultValueq: false,
     }
   }, { tableName });
 

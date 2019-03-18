@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     code: DataTypes.STRING,
     answered: {
       type: DataTypes.BOOLEAN,
-      default: false,
+      defaultValue: false,
     },
     roomId: DataTypes.UUID,
   }, { tableName });

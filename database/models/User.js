@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const hooks = {
     async beforeCreate (user) {
-      user.password = await bcrypt.hash(user.password, process.env.SALT);
+      user.password = await bcrypt.hash(user.password, +process.env.SALT);
     },
   };
   const tableName = 'users';
@@ -33,13 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     credits: {
       type: DataTypes.INTEGER,
-      default: 0,
-      allowNull: false,
+      defaultValue: 0,
     },
     karma: {
       type: DataTypes.INTEGER,
-      default: 0,
-      allowNull: false,
+      defaultValue: 0,
     },
     available: DataTypes.BOOLEAN,
     profileBadge: DataTypes.STRING
