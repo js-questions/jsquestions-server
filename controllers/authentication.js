@@ -56,7 +56,7 @@ exports.logIn = async (ctx) => {
     const [email, password] = atob(basic[1]).split(':');
 
     // Check the user exists
-    const user = await db.User.findOne({ email });
+    const user = await db.User.findOne({ where: {email} });
     if (!user) {
       ctx.body = JSON.stringify('Invalid email or password');
       return;
@@ -65,7 +65,6 @@ exports.logIn = async (ctx) => {
     // Check the password is correct
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      console.log('No match', match);
       ctx.body = JSON.stringify('Invalid email or password');
       return;
     }
