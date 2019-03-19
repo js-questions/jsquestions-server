@@ -7,6 +7,7 @@ const http = require('http').Server(app)
 const cors = require('@koa/cors')
 const bodyParser = require('koa-bodyparser')
 const db = require('./database/models')
+const router = require('./router');
 
 const io = require('socket.io')(http);
 
@@ -46,12 +47,13 @@ function connection (socket) {
 
 app.use(bodyParser())
 app.use(cors());
+app.use(router.routes());
 
 (async () => {
-  // await db.sequelize.drop();  // Testing DB
-  // await db.sequelize.sync({ force: true });  // Testing DB
-  await db.sequelize.sync()
+  // await db.sequelize.drop();                 // drop db and
+  // await db.sequelize.sync({ force: true });  // restart it
+  await db.sequelize.sync();
   http.listen(process.env.PORT, async () => {
-    console.log(`Listening on port ${process.env.PORT}`)
-  })
+    console.log(`Listening on port ${process.env.PORT}`);
+  });
 })()
