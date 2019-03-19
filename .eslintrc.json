@@ -1,17 +1,33 @@
 {
-    "env": {
-        "commonjs": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": "standard",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018
-    },
-    "rules": {
-    }
+  "env": {
+      "commonjs": true,
+      "es6": true,
+      "node": true,
+      "browser": true
+  },
+  "extends": "standard",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018
+  },
+  "plugins": [
+    "json"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "keyword-spacing": "error",
+    "linebreak-style": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": "error",
+    "no-undef": "off",
+    "no-unused-vars": "off"
+  }
 }
