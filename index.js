@@ -6,9 +6,11 @@ const cors = require('koa-cors');
 
 const app = new Koa();
 const db = require('./database/models')
+const router = require('./router');
 
 app.use(bodyParser());
 app.use(cors());
+app.use(router.routes());
 
 (async () => {
   // await db.sequelize.drop();  // Testing DB
