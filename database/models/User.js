@@ -40,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
     available: DataTypes.BOOLEAN,
-    profileBadge: DataTypes.STRING
+    profileBadge: {
+      type: DataTypes.STRING,
+      defaultValue: "https://image.flaticon.com/icons/png/128/235/235394.png",
+    },
   }, { hooks, tableName });
 
   User.associate = (models) => {

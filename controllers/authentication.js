@@ -68,11 +68,37 @@ exports.logIn = async (ctx) => {
       ctx.body = JSON.stringify('Invalid email or password');
       return;
     }
+    
+    // Deconstructing the data for the token
+    const {
+      userId,
+      username,
+      firstName,
+      lastName,
+      credits,
+      karma,
+      available,
+      profileBadge,
+      createdAt,
+      updatedAt,
+    } = user;
 
     // Generate the token and send it to the FE
     const jwtSignAsync = promisify(jwt.sign);
     ctx.body = {
-      token: await jwtSignAsync({ user }, process.env.JWTSECRET)
+      token: await jwtSignAsync({
+        userId,
+        username,
+        firstName,
+        lastName,
+        email,
+        credits,
+        karma,
+        available,
+        profileBadge,
+        createdAt,
+        updatedAt,
+      }, process.env.JWTSECRET)
     };
     ctx.status = 200;
   }
