@@ -1,4 +1,3 @@
-const db = require('./../database/models');
 const { Sequelize } = require('./../database/models');
 const btoa = require('btoa');
 const atob = require('atob');
@@ -6,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 
-exports.signUp = async (ctx, next) => {
+exports.signUp = async (ctx, db, next) => {
   const { username, email, password } = ctx.request.body;
   const existingUser = await db.User.findOne({
     where: {
@@ -46,7 +45,7 @@ exports.signUp = async (ctx, next) => {
   await next();
 }
 
-exports.logIn = async (ctx) => {
+exports.logIn = async (ctx, db) => {
   if (ctx.headers.authorization) {
     // Decode the Basic auth
     const basic = ctx.headers.authorization.split(' ');
@@ -98,7 +97,9 @@ exports.logIn = async (ctx) => {
         profileBadge,
         createdAt,
         updatedAt,
-      }, process.env.JWTSECRET)
+      }, process.env.JWTSECRET, { expiresIn: '30 days' })
+      // JWT expiration date is in seconds, not miliseconds, so to
+      // take it to "JS standards" we need to add 000 at the end
     };
     ctx.status = 200;
   }
