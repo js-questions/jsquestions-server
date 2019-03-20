@@ -2,14 +2,14 @@ require('dotenv').config({ path: '.env' })
 
 const Koa = require('koa')
 const app = new Koa()
-const http = require('http').Server(app)
+const server = require('http').Server(app.callback())
 
 const cors = require('@koa/cors')
 const bodyParser = require('koa-bodyparser')
 const db = require('./database/models')
 const router = require('./router');
 
-const io = require('socket.io')(http);
+const io = require('socket.io')(server);
 
 io.on('connection', connection);
 
@@ -53,7 +53,7 @@ app.use(router.routes());
   // await db.sequelize.drop();                 // drop db and
   // await db.sequelize.sync({ force: true });  // restart it
   await db.sequelize.sync();
-  http.listen(process.env.PORT, async () => {
+  server.listen(process.env.PORT, async () => {
     console.log(`Listening on port ${process.env.PORT}`);
   });
 })()
