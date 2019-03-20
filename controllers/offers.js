@@ -14,6 +14,7 @@ exports.createOffer = async (ctx, db) => {
       message,
       expiration
     })
+
     ctx.status = 200;
 
   } catch (err) {
@@ -35,6 +36,20 @@ exports.rejectOffer = async (ctx, db) => {
 exports.getQuestionOffers = async (ctx, db) => {
 
   try {
+
+    const question = await db.Question.findOne({
+      where: {
+        questionId: ctx.params.questionid
+      }
+    })
+
+    const offers = await db.Offer.findAll({
+      where: {
+        linkedQuestion: ctx.params.questionid
+      }
+    })
+    ctx.body = { question: question, offers: offers };
+    ctx.status = 200;
 
   } catch (err) {
     console.log(err); // eslint-disable-line
