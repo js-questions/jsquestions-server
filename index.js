@@ -20,7 +20,7 @@ const editor = {
 };
 
 function connection (socket) {
-  console.log('A new user with socket ' + socket.id + ' has entered.');
+  console.log('A user with socket ' + socket.id + ' has entered.');
 
   // If the user is loged in, add it to the onlineUsers obj
   socket.on('user online', ({ token }) => {
