@@ -46,3 +46,13 @@ exports.getOneUser = async (ctx, db) => {
     ctx.status = 500;
   }
 }
+
+exports.updateProfile = async (ctx, db) => {
+
+  try {
+
+  } catch (err) {
+    console.log(err); // eslint-disable-line
+    ctx.status = 500;
+  }
+}
