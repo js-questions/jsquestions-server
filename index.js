@@ -7,40 +7,59 @@ const server = require('http').Server(app.callback())
 const cors = require('@koa/cors')
 const bodyParser = require('koa-bodyparser')
 const db = require('./database/models')
+db.onlineUsers = {};
 const router = require('./router');
 
 const io = require('socket.io')(server);
+const { decode } = require('jsonwebtoken');
 
 io.on('connection', connection);
 
-const text = {
+const editor = {
   text: ''
 };
 
 function connection (socket) {
-  console.log('A new user with id ' + socket.id + ' has entered');
-  socket.emit('newUser', text);
-  socket.on('text', handleTextSend);
+  console.log('A new user with socket ' + socket.id + ' has entered.');
+
+  // If the user is loged in, add it to the onlineUsers obj
+  socket.on('user online', ({ token }) => {
+    if (token) {
+      db.onlineUsers[decode(token).userId] = socket.id;
+      console.log(db.onlineUsers);
+    }
+  });
+
+  // Whenever the user leaves the app, we mark her us undefined
+  socket.on('disconnect', () => {
+    console.log(`The user with socket ${socket.id} has left.`);
+    Object.keys(db.onlineUsers).map((value) => {
+      if (db.onlineUsers[value] === socket.id) {
+        db.onlineUsers[value] = undefined;
+      }
+    });
+  });
 
   socket.on('join room', joinRoom)
-
+  
   // CHAT
   socket.on('chat message', sendMsg);
   function sendMsg (msg){
-    console.log(msg)
-    console.log(msg.room)
+    console.log('Messege data', msg)
     io.to(msg.room).emit('chat message', msg);
   }
-
+  
   // EDITOR
+  socket.emit('newUser', editor);
+  socket.on('editor', handleTextSend);
   function handleTextSend (data) {
     console.log('handle text send', data);
-    text.text = data.text;
-    io.to('1234').emit('text', data); // It´s sending it to all the sockets, not only the ones in the room
+    editor.text = data.text;
+    io.to(editor.room).emit('editor', data); // It´s sending it to all the sockets, not only the ones in the room
   }
 
   function joinRoom(room) {
-    console.log('conected!', room)
+    console.log('Connected to room', room)
     socket.join(room);
   }
 }
