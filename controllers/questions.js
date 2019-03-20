@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const uuid = require('uuid');
 
 exports.postOneQuestion = async (ctx, db) => {
   try {
@@ -11,7 +12,8 @@ exports.postOneQuestion = async (ctx, db) => {
       title,
       description,
       resources,
-      code
+      code,
+      roomId: uuid.v4()
     })
     ctx.status = 200;
 
