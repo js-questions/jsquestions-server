@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     expiration: DataTypes.DATE,
     rejected: {
       type: DataTypes.BOOLEAN,
-      defaultValueq: false,
+      defaultValue: false,
     }
   }, { tableName });
 
   Offer.associate = (models) => {
-    Offer.hasOne(models.Question, { foreignKey: 'answeredBy', targetKey: 'offerId' })
+    Offer.hasOne(models.Question, { constraints: false, foreignKey: 'answeredBy', targetKey: 'offerId' })
   };
 
   return Offer;

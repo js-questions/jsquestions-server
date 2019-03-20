@@ -1,4 +1,3 @@
-const { Sequelize } = require('./../database/models');
 const btoa = require('btoa');
 const atob = require('atob');
 const bcrypt = require('bcrypt');
@@ -10,7 +9,7 @@ exports.signUp = async (ctx, db, next) => {
   const existingUser = await db.User.findOne({
     where: {
       // Sequelize OR operator, checks for existing email OR username
-      [Sequelize.Op.or]: [{email}, {username}]
+      [db.Sequelize.Op.or]: [{email}, {username}]
     }
   })
 
