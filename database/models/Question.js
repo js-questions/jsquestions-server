@@ -3,13 +3,13 @@
 module.exports = (sequelize, DataTypes) => {
   const tableName = 'questions';
   const Question = sequelize.define('Question', {
-    questionId: {
+    question_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    answeredBy: DataTypes.INTEGER,
+    answered_by: DataTypes.INTEGER,
     learner: DataTypes.INTEGER,
     title:{
       type: DataTypes.STRING,
@@ -25,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    roomId: DataTypes.UUID,
+    room_id: DataTypes.UUID,
   }, { tableName });
   Question.associate = (models) => {
-    Question.belongsTo(models.User, { foreignKey: 'learner', targetKey: 'userId' });
-    Question.hasMany(models.Offer, { foreignKey: 'linkedQuestion', targetKey: 'questionId' });
+    Question.belongsTo(models.User, { foreignKey: 'learner', targetKey: 'user_id' });
+    Question.hasMany(models.Offer, { foreignKey: 'linked_question', targetKey: 'question_id' });
   };
   return Question;
 };

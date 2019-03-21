@@ -9,8 +9,8 @@ exports.createOffer = async (ctx, db) => {
     const prettyBearer = (jwt.decode(bearer[1]));
 
     ctx.body = await db.Offer.create({
-      tutor: prettyBearer.userId,
-      linkedQuestion: ctx.params.questionid,
+      tutor: prettyBearer.user_id,
+      linked_question: ctx.params.questionid,
       message,
       expiration
     })
@@ -39,13 +39,13 @@ exports.getQuestionOffers = async (ctx, db) => {
 
     const question = await db.Question.findOne({
       where: {
-        questionId: ctx.params.questionid
+        question_id: ctx.params.questionid
       }
     })
 
     const offers = await db.Offer.findAll({
       where: {
-        linkedQuestion: ctx.params.questionid
+        linked_question: ctx.params.questionid
       }
     })
     ctx.body = { question: question, offers: offers };

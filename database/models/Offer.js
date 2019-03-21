@@ -3,7 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   const tableName = 'offers';
   const Offer = sequelize.define('Offer', {
-    offerId: {
+    offer_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     tutor: DataTypes.INTEGER,
     message: DataTypes.STRING,
-    linkedQuestion: DataTypes.INTEGER,
+    linked_question: DataTypes.INTEGER,
     expiration: DataTypes.DATE,
     rejected: {
       type: DataTypes.BOOLEAN,
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, { tableName });
 
   Offer.associate = (models) => {
-    Offer.hasOne(models.Question, { constraints: false, foreignKey: 'answeredBy', targetKey: 'offerId' })
+    Offer.hasOne(models.Question, { constraints: false, foreignKey: 'answered_by', targetKey: 'offer_id' })
   };
 
   return Offer;
