@@ -45,16 +45,17 @@ exports.getAllAskedQuestions = async (ctx, db) => {
 
 exports.updateQuestionStatus = async (ctx, db) => {
   try {
-    const { answeredBy } = ctx.request.body;
+    const { answered_by } = ctx.request.body;
     const question = await db.Question.findOne({
       where: { question_id: ctx.params.questionid }
     });
     const bearer = ctx.headers.authorization.split(' ');
     const prettyBearer = (jwt.decode(bearer[1]));
     // Check if the user requesting the change is the learner
-    if (question.learner === prettyBearer.userId) {
+
+    if (question.learner === prettyBearer.user_id) {
       await db.Question.update(
-        { answeredBy },
+        { answered_by },
         {
           returning: true,  // So it returns the updatedQuestion as well
           where: { question_id: question.question_id }

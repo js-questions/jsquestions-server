@@ -25,7 +25,7 @@ function connection (socket) {
   // If the user is loged in, add it to the onlineUsers obj
   socket.on('user online', ({ token }) => {
     if (token) {
-      db.onlineUsers[decode(token).userId] = socket.id;
+      db.onlineUsers[decode(token).user_id] = socket.id;
       console.log('Online users:', db.onlineUsers);
       console.log('Ping specific user:', db.onlineUsers['1']);
     }
@@ -65,12 +65,13 @@ function connection (socket) {
   }
 
   // PUSH MESSAGE TO TUTOR
-  socket.on('chat now', question => {
-    console.log(question)
+  socket.on('chat now', (question) => {
+    pushTutor(question)
   })
+
   function pushTutor (question) {
     // Emiting to an specific socketId
-    io.sockets.connected[db.onlineUsers['1']].emit('push tutor', { question });
+    io.sockets.connected[db.onlineUsers[question.answered_by]].emit('push tutor', question);
   }
 }
 
