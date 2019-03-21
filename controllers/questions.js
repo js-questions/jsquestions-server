@@ -61,7 +61,11 @@ exports.updateQuestionStatus = async (ctx, db) => {
         }
       ).then(([ rowsUpdate, [ updatedQuestion ] ]) => {
         ctx.body = JSON.stringify(updatedQuestion);
+        ctx.status = 200;
       })
+    } else {
+      ctx.body = JSON.stringify('You\'re not authorized to make this change');
+      ctx.status = 403;
     }
   } catch (err) {
     console.log(err); // eslint-disable-line

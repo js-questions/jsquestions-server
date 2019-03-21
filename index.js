@@ -55,7 +55,7 @@ function connection (socket) {
   function handleTextSend (data) {
     console.log('handle text send', data);
     editor.text = data.text;
-    io.to(editor.room).emit('editor', data); // It´s sending it to all the sockets, not only the ones in the room
+    io.to(editor.room).emit('editor', data);
   }
 
   function joinRoom(room) {
