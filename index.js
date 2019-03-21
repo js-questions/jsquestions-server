@@ -26,7 +26,8 @@ function connection (socket) {
   socket.on('user online', ({ token }) => {
     if (token) {
       db.onlineUsers[decode(token).userId] = socket.id;
-      console.log(db.onlineUsers);
+      console.log('Online users:', db.onlineUsers);
+      console.log('Ping specific user:', db.onlineUsers['1']);
     }
   });
 
@@ -55,12 +56,18 @@ function connection (socket) {
   function handleTextSend (data) {
     console.log('handle text send', data);
     editor.text = data.text;
-    io.to(editor.room).emit('editor', data);
+    io.to(data.room).emit('editor', data);
   }
 
   function joinRoom(room) {
     console.log('Connected to room', room)
     socket.join(room);
+  }
+
+  // PUSH MESSAGE
+  if (db.onlineUsers['1']) {
+    // Emiting to an specific socketId
+    io.sockets.connected[db.onlineUsers['1']].emit('push tutor', { questionData: 'test'});
   }
 }
 
