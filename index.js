@@ -64,10 +64,13 @@ function connection (socket) {
     socket.join(room);
   }
 
-  // PUSH MESSAGE
-  if (db.onlineUsers['1']) {
+  // PUSH MESSAGE TO TUTOR
+  socket.on('chat now', question => {
+    console.log(question)
+  })
+  function pushTutor (question) {
     // Emiting to an specific socketId
-    io.sockets.connected[db.onlineUsers['1']].emit('push tutor', { questionData: 'test'});
+    io.sockets.connected[db.onlineUsers['1']].emit('push tutor', { question });
   }
 }
 
