@@ -47,7 +47,7 @@ exports.updateQuestionStatus = async (ctx, db) => {
   try {
     const { answeredBy } = ctx.request.body;
     const question = await db.Question.findOne({
-      where: { questionId: ctx.params.questionid }
+      where: { question_id: ctx.params.questionid }
     });
     const bearer = ctx.headers.authorization.split(' ');
     const prettyBearer = (jwt.decode(bearer[1]));
@@ -57,7 +57,7 @@ exports.updateQuestionStatus = async (ctx, db) => {
         { answeredBy },
         {
           returning: true,  // So it returns the updatedQuestion as well
-          where: { questionId: question.questionId }
+          where: { question_id: question.question_id }
         }
       ).then(([ rowsUpdate, [ updatedQuestion ] ]) => {
         ctx.body = JSON.stringify(updatedQuestion);
