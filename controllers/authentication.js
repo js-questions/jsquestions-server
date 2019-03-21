@@ -69,7 +69,7 @@ exports.logIn = async (ctx, db) => {
     
     // Deconstructing the data for the token
     const {
-      userId,
+      user_id,
       username,
       firstName,
       lastName,
@@ -85,7 +85,7 @@ exports.logIn = async (ctx, db) => {
     const jwtSignAsync = promisify(jwt.sign);
     ctx.body = {
       token: await jwtSignAsync({
-        userId,
+        user_id,
         username,
         firstName,
         lastName,

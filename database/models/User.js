@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   const tableName = 'users';
   const User = sequelize.define('User', {
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
   }, { hooks, tableName });
 
   User.associate = (models) => {
-    User.hasMany(models.Offer, { foreignKey: 'tutor', targetKey: 'userId' });
+    User.hasMany(models.Offer, { foreignKey: 'tutor', targetKey: 'user_id' });
   };
 
   return User;

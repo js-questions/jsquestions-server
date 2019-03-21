@@ -14,7 +14,7 @@ If you don't have Homebrew installed (you should), you can download it from [Doc
 
 ### Set-up docker
 
-If it's your first time running Docker, open it fron Applications, log-in (sign-up) and follow the steps there.
+If it's your first time running Docker, open it from Applications, log-in (sign-up) and follow the steps there.
 
 ### Run the development DB with docker:
 

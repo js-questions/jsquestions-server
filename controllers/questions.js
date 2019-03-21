@@ -8,12 +8,12 @@ exports.postOneQuestion = async (ctx, db) => {
     const prettyBearer = (jwt.decode(bearer[1]));
 
     ctx.body = await db.Question.create({
-      learner: prettyBearer.userId,
+      learner: prettyBearer.user_id,
       title,
       description,
       resources,
       code,
-      roomId: uuid.v4()
+      room_id: uuid.v4()
     })
     ctx.status = 200;
 
