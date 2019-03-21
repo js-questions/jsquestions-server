@@ -61,7 +61,7 @@ exports.updateQuestionStatus = async (ctx, db) => {
           where: { question_id: question.question_id }
         }
       ).then(([ rowsUpdate, [ updatedQuestion ] ]) => {
-        ctx.body = JSON.stringify(updatedQuestion);
+        ctx.body = updatedQuestion;
         ctx.status = 200;
       })
     } else {
