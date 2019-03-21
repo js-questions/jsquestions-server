@@ -14,7 +14,7 @@ module.exports = {
       message: {
         type: Sequelize.STRING
       },
-      linkedQuestion: {
+      linked_question: {
         type: Sequelize.STRING
       },
       expiration: {

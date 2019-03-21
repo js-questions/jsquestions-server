@@ -29,7 +29,7 @@ module.exports = {
       answered: {
         type: Sequelize.BOOLEAN
       },
-      roomId: {
+      room_id: {
         type: Sequelize.UUID
       },
       createdAt: {

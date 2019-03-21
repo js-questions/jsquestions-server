@@ -2,7 +2,7 @@ exports.getAllUsers = async (ctx, db) => {
   try {
     ctx.body = await db.User.findAll({
       attributes: [
-        'userId',
+        'user_id',
         'username',
         'email',
         'firstName',
@@ -25,9 +25,9 @@ exports.getAllUsers = async (ctx, db) => {
 exports.getOneUser = async (ctx, db) => {
   try {
     ctx.body = await db.User.findOne({
-      where: { userId: ctx.params.userId },
+      where: { user_id: ctx.params.userId },
       attributes: [
-        'userId',
+        'user_id',
         'username',
         'email',
         'firstName',
