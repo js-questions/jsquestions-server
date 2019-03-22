@@ -75,7 +75,7 @@ exports.getAllQuestions = async (ctx, db) => {
 
     const closedQuestions = closed.map((el) => el.question_id)
 
-    const responseQuestions = allQuestions.map((question) => {
+    const responseQuestions = allQuestions.filter((question) => {
       if (pendingQuestions.includes(question.question_id)) {
         question.dataValues['status'] = 'pending'
       }
@@ -84,7 +84,9 @@ exports.getAllQuestions = async (ctx, db) => {
       }
       if (!question.dataValues['status']) question.dataValues['status'] = 'help-now'
 
-      return question;
+      if (question.learner !== prettyBearer.user_id) {
+        return question;
+      }
     })
 
     ctx.body = responseQuestions
