@@ -16,7 +16,7 @@ const { decode } = require('jsonwebtoken');
 io.on('connection', connection);
 
 const editor = {
-  text: ''
+  code: ''
 };
 
 function connection (socket) {
@@ -52,10 +52,10 @@ function connection (socket) {
   
   // EDITOR
   socket.emit('newUser', editor);
-  socket.on('editor', handleTextSend);
-  function handleTextSend (data) {
-    console.log('handle text send', data);
-    editor.text = data.text;
+  socket.on('editor', handleCodeSend);
+  function handleCodeSend (data) {
+    console.log('Code sent', data);
+    editor.code = data.code;
     io.to(data.room).emit('editor', data);
   }
 
