@@ -44,9 +44,29 @@ exports.getAllAskedQuestions = async (ctx, db) => {
 }
 
 exports.updateQuestionStatus = async (ctx, db) => {
-
   try {
-
+    const { answered_by } = ctx.request.body;
+    const question = await db.Question.findOne({
+      where: { question_id: ctx.params.questionid }
+    });
+    const bearer = ctx.headers.authorization.split(' ');
+    const prettyBearer = (jwt.decode(bearer[1]));
+    // Check if the user requesting the change is the learner
+    if (question.learner === prettyBearer.user_id) {
+      await db.Question.update(
+        { answered_by },
+        {
+          returning: true,  // So it returns the updatedQuestion as well
+          where: { question_id: question.question_id }
+        }
+      ).then(([ rowsUpdate, [ updatedQuestion ] ]) => {
+        ctx.body = updatedQuestion;
+        ctx.status = 200;
+      })
+    } else {
+      ctx.body = JSON.stringify('You\'re not authorized to make this change');
+      ctx.status = 403;
+    }
   } catch (err) {
     console.log(err); // eslint-disable-line
     ctx.status = 500;
@@ -56,6 +76,49 @@ exports.updateQuestionStatus = async (ctx, db) => {
 exports.closeQuestion = async (ctx, db) => {
 
   try {
+
+    const { karma, credits: tokens } = ctx.request.body;
+    const target = ctx.params.questionid;
+    const participants = await db.sequelize.query('SELECT offers.offer_id, offers.tutor, questions.question_id, questions.learner, questions.answered_by FROM questions JOIN offers ON questions.question_id = offers.linked_question WHERE questions.question_id = :target AND offers.offer_id = questions.answered_by',
+    { 
+      replacements: { target: target }, type: db.sequelize.QueryTypes.SELECT 
+    })
+
+    if (participants.length === 1) {
+      // const learner = db.User.update({
+      //   credits: tokens > credits ? 0 : 0,
+      // },
+      // {
+      //   returning: true,
+      //   where: {
+      //     user_id: participants[0].learner
+      //   }
+      // })
+      await db.User.update({
+        karma: karma
+      },
+      {
+        where: {
+          user_id: participants[0].tutor
+        }
+      })
+      const response = await db.Question.update({
+        answered: true
+      }, 
+      {
+        returning: true,
+        where: {
+          question_id: participants[0].question_id
+        }
+      })
+      ctx.body = response[1][0];
+      ctx.status = 200
+      
+      
+    } else {
+      ctx.body = {error: 'Question not found'}
+      ctx.status = 401;
+    }
 
   } catch (err) {
     console.log(err); // eslint-disable-line
