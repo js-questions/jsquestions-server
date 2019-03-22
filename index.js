@@ -76,6 +76,21 @@ function connection (socket) {
     // Maybe it will be better to query the database to check how is
     // the tutor of the offer in answered_by
   }
+
+  // HANG UP
+  socket.on('hang up', ({ roomId }) => {
+    // Sends a message back to the room stating which user hanged up
+    io.in(roomId).emit('hang up', 'username hang up.');
+    // Disconnect all users from the room
+    io.in(roomId).clients((err, clients) => {
+      if (err) {
+        console.log(err);
+      }
+      for (let i = 0; i < clients; i++) {
+        io.sockets.connected[clients[i]].disconnect(true);
+      }
+    })
+  })
 }
 
 app.use(bodyParser())
