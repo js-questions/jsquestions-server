@@ -27,7 +27,6 @@ function connection (socket) {
     if (token) {
       db.onlineUsers[decode(token).user_id] = socket.id;
       console.log('Online users:', db.onlineUsers);
-      console.log('Ping specific user:', db.onlineUsers['1']);
     }
   });
 
@@ -41,7 +40,13 @@ function connection (socket) {
     });
   });
 
+  // JOIN ROOM
   socket.on('join room', joinRoom)
+  function joinRoom(room) {
+    console.log('User with socket ' + socket.id + ' just joined room ' + room)
+    socket.join(room);
+    socket.emit('join room', 'Joined!');
+  }
   
   // CHAT
   socket.on('chat message', sendMsg);
@@ -57,11 +62,6 @@ function connection (socket) {
     console.log('Code sent', data);
     editor.code = data.code;
     io.to(data.room).emit('editor', data);
-  }
-
-  function joinRoom(room) {
-    console.log('Connected to room', room)
-    socket.join(room);
   }
 
   // PUSH MESSAGE TO TUTOR
