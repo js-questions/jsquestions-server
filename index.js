@@ -27,7 +27,6 @@ function connection (socket) {
     if (token) {
       db.onlineUsers[decode(token).user_id] = socket.id;
       console.log('Online users:', db.onlineUsers);
-      console.log('Ping specific user:', db.onlineUsers['1']);
     }
   });
 
@@ -41,7 +40,15 @@ function connection (socket) {
     });
   });
 
+  // JOIN ROOM
   socket.on('join room', joinRoom)
+  function joinRoom(room) {
+    console.log('User with socket ' + socket.id + ' just joined room ' + room)
+    socket.join(room);
+    if (io.sockets.adapter.rooms[room].length === 2) {
+      io.in(room).emit('join room', 'Room ready!');
+    }
+  }
   
   // CHAT
   socket.on('chat message', sendMsg);
@@ -59,11 +66,6 @@ function connection (socket) {
     io.to(data.room).emit('editor', data);
   }
 
-  function joinRoom(room) {
-    console.log('Connected to room', room)
-    socket.join(room);
-  }
-
   // PUSH MESSAGE TO TUTOR
   socket.on('chat now', (question) => {
     pushTutor(question)
@@ -76,6 +78,21 @@ function connection (socket) {
     // Maybe it will be better to query the database to check how is
     // the tutor of the offer in answered_by
   }
+
+  // HANG UP
+  socket.on('hang up', ({ roomId }) => {
+    // Sends a message back to the room stating which user hanged up
+    io.in(roomId).emit('hang up', 'username hang up.');
+    // Disconnect all users from the room
+    io.in(roomId).clients((err, clients) => {
+      if (err) {
+        console.log(err);
+      }
+      for (let i = 0; i < clients; i++) {
+        io.sockets.connected[clients[i]].disconnect(true);
+      }
+    })
+  })
 }
 
 app.use(bodyParser())
