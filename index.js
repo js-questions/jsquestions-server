@@ -45,7 +45,9 @@ function connection (socket) {
   function joinRoom(room) {
     console.log('User with socket ' + socket.id + ' just joined room ' + room)
     socket.join(room);
-    io.in(room).emit('join room', 'Joined!');
+    if (io.sockets.adapter.rooms[room].length === 2) {
+      io.in(room).emit('join room', 'Room ready!');
+    }
   }
   
   // CHAT
