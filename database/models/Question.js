@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }, { tableName });
   Question.associate = (models) => {
     Question.belongsTo(models.User, { foreignKey: 'learner', targetKey: 'user_id' });
-    Question.hasMany(models.Offer, { foreignKey: 'linked_question', targetKey: 'question_id' });
+    Question.belongsTo(models.Offer, { foreignKey: 'answered_by', constraints: false });
   };
   return Question;
 };

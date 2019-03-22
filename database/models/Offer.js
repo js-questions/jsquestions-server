@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, { tableName });
 
   Offer.associate = (models) => {
-    Offer.hasOne(models.Question, { constraints: false, foreignKey: 'answered_by', targetKey: 'offer_id' })
+    Offer.belongsTo(models.Question, { foreignKey: 'linked_question' })
   };
 
   return Offer;
