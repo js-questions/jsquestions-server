@@ -15,6 +15,7 @@ exports.postOneQuestion = async (ctx, db) => {
       code,
       room_id: uuid.v4()
     })
+    // introduce a check to see if the user has available tokens
     ctx.status = 200;
 
   } catch (err) {
@@ -101,7 +102,28 @@ exports.getAllQuestions = async (ctx, db) => {
 exports.getAllAskedQuestions = async (ctx, db) => {
 
   try {
-
+    const bearer = ctx.headers.authorization.split(' ');
+    const prettyBearer = (jwt.decode(bearer[1]));
+    const allQuestions = await db.Question.findAll({
+      attributes: [
+        'question_id',
+        'answered_by',
+        'learner',
+        'title',
+        'description',
+        'resources',
+        'code',
+        'answered',
+        'room_id',
+        'createdAt',
+        'updatedAt'
+      ],
+      where: {
+        learner: prettyBearer.user_id
+      }
+    })
+    ctx.body = allQuestions;
+    ctx.status = 200;
   } catch (err) {
     console.log(err); // eslint-disable-line
     ctx.status = 500;
@@ -150,17 +172,17 @@ exports.closeQuestion = async (ctx, db) => {
     })
 
     if (participants.length === 1) {
-      // const learner = db.User.update({
-      //   credits: tokens > credits ? 0 : 0,
-      // },
-      // {
-      //   returning: true,
-      //   where: {
-      //     user_id: participants[0].learner
-      //   }
-      // })
-      await db.User.update({
-        karma: karma
+      await db.User.decrement({
+        credits: tokens
+      },
+      {
+        where: {
+          user_id: participants[0].learner
+        }
+      })
+      await db.User.increment({
+        karma: karma,
+        credits: tokens
       },
       {
         where: {
