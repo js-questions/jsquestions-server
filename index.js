@@ -72,6 +72,9 @@ function connection (socket) {
   function pushTutor (question) {
     // Emiting to an specific socketId
     io.sockets.connected[db.onlineUsers[question.tutor]].emit('push tutor', question);
+    // Recieving the tutor in the question data from the FE
+    // Maybe it will be better to query the database to check how is
+    // the tutor of the offer in answered_by
   }
 }
 
