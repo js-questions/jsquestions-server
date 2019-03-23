@@ -10,7 +10,10 @@ const cors = require('@koa/cors')
 const bodyParser = require('koa-bodyparser')
 const router = require('./router');
 
-const io = require('socket.io')(server)
+const io = require('socket.io')(server, {
+  pingInterval: 900000,
+  pingTimeout: 5000,
+})
 const Socketer = require('./socket');
 const ioClient = new Socketer(io, db);
 io.on('connection', (socket) => ioClient.connection(socket))
