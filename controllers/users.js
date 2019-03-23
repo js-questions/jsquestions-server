@@ -1,6 +1,6 @@
 exports.getAllUsers = async (ctx, db) => {
   try {
-    ctx.body = await db.User.findAll({
+    const users = await db.User.findAll({
       attributes: [
         'user_id',
         'username',
@@ -15,6 +15,12 @@ exports.getAllUsers = async (ctx, db) => {
         'updatedAt',
       ]
     });
+    for (let user in db.onlineUsers) {
+      if (db.onlineUsers[user]) {
+        users[user - 1].available = db.onlineUsers[user]
+      }
+    }
+    ctx.body = users;
     ctx.status = 200;
   } catch (err) {
     console.log(err); // eslint-disable-line
@@ -24,7 +30,7 @@ exports.getAllUsers = async (ctx, db) => {
 
 exports.getOneUser = async (ctx, db) => {
   try {
-    ctx.body = await db.User.findOne({
+    const user = await db.User.findOne({
       where: { user_id: ctx.params.userId },
       attributes: [
         'user_id',
@@ -40,6 +46,8 @@ exports.getOneUser = async (ctx, db) => {
         'updatedAt',
       ]
     });
+    if (db.onlineUsers[user.user_id]) user.available = db.onlineUsers[user.user_id];
+    ctx.body = user;
     ctx.status = 200;
   } catch (err) {
     console.log(err); // eslint-disable-line
