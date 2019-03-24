@@ -13,7 +13,7 @@ exports.postOneQuestion = async (ctx, db) => {
       description,
       resources,
       code,
-      room_id: uuid.v4()
+      room_id: uuid.v4()  // move the room assigment to a hook in the model
     })
     // introduce a check to see if the user has available tokens
     ctx.status = 200;
