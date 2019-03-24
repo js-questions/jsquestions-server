@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     resources: DataTypes.STRING,
-    code: DataTypes.STRING,
+    code: DataTypes.TEXT,
     answered: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

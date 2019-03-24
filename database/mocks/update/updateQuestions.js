@@ -1,18 +1,70 @@
 exports.updateQuestions = [
   {
     update: {
-      question_id: 1,
-      answered_by: 1,
-      learner: 6,
-      title: 'Como se cocina coca?',
-      description: 'Tengo nafta y un par de plantas pero no se si picarla o meterla toda junta.',
-      resources: 'pablitoescobar.com.co',
-      code: 'function (coca) {}',
-      createdAt: 1553358946653,
-      updatedAt: 1553358946653,
+      learner: 3,
     },
     options: {
-      where: {question_id: 1}
+      where: { question_id: 1 }
+    }
+  },
+  {
+    update: {
+      answered_by: 2,
+    
+      learner: 4,
+      answered: true,
+    },
+    options: {
+      where: { question_id: 2 }
+    }
+  },
+  {
+    update: {
+      learner: 6,
+    },
+    options: {
+      where: { question_id: 3 }
+    }
+  },
+  {
+    update: {
+      learner: 6,
+    },
+    options: {
+      where: { question_id: 4 }
+    }
+  },
+  {
+    update: {
+      learner: 6,
+    },
+    options: {
+      where: { question_id: 5 }
+    }
+  },
+  {
+    update: {
+      learner: 6,
+    },
+    options: {
+      where: { question_id: 6 }
+    }
+  },
+  {
+    update: {
+      answered_by: 3,
+      learner: 6,
+    },
+    options: {
+      where: { question_id: 7 }
+    }
+  },
+  {
+    update: {
+      learner: 4,
+    },
+    options: {
+      where: { question_id: 8 }
     }
   }
-]
+];
