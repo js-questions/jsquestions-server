@@ -1,6 +1,6 @@
 exports.mockQuestions = [
   {
-    question_id: 1,
+    // question_id: 1,
     // answered_by: 1,
     // learner: 6,
     title: 'Como se cocina coca?',
@@ -11,7 +11,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 2,
+    // question_id: 2,
     // answered_by: 1,
     // learner: 6,
     title: 'Habla español?',
@@ -22,7 +22,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 3,
+    // question_id: 3,
     // answered_by: 1,
     // learner: 6,
     title: 'Are object iterable? why?',
@@ -33,7 +33,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 4,
+    // question_id: 4,
     // answered_by: 1,
     // learner: 6,
     title: 'Asynchronicity',
@@ -44,7 +44,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 5,
+    // question_id: 5,
     // answered_by: 1,
     // learner: 6,
     title: 'Why Sequelize is lowercasing all my raw queries?',
@@ -55,7 +55,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 6,
+    // question_id: 6,
     // answered_by: 1,
     // learner: 6,
     title: 'Redux approach',
@@ -66,7 +66,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 7,
+    // question_id: 7,
     // answered_by: 1,
     // learner: 6,
     title: 'Should I join a bootcamp?',
@@ -77,7 +77,7 @@ exports.mockQuestions = [
     updatedAt: 1553358946653,
   },
   {
-    question_id: 8,
+    // question_id: 8,
     // answered_by: 1,
     // learner: 6,
     title: 'How does salt taste like?',
