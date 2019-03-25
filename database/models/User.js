@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     credits: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
+      defaultValue: 250,
     },
     karma: {
       type: DataTypes.INTEGER,

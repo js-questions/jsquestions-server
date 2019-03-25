@@ -62,6 +62,9 @@ class Socketer {
     socket.on('cancel call', (tutor) => {
       this.io.sockets.connected[this.db.onlineUsers[tutor]].emit('cancel call');
     })
+
+    // UPDATE OFFERS
+    socket.on('offer sent', ({ offer, learner_id }) => this.sentOffer(offer, learner_id, socket))
   }
 
   joinRoom(room, socket) {
@@ -88,6 +91,10 @@ class Socketer {
     // Recieving the tutor in the question data from the FE
     // Maybe it will be better to query the database to check who is
     // the tutor of the offer in answered_by
+  }
+
+  sentOffer (offer, learner_id) {
+    this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', offer);
   }
 
 }
