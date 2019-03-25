@@ -40,6 +40,9 @@ class Socketer {
     socket.emit('newUser', this.editor);
     socket.on('editor', (data) => this.handleCodeSend(data, socket));
 
+    // UPDATE THE QUESTION OF THE CHAT
+    socket.on('question info', (data) => this.sendQuestionInfo(data));
+
     // PUSH MESSAGE TO TUTOR
     socket.on('chat now', (question) => this.pushTutor(question, socket))
     
@@ -72,6 +75,10 @@ class Socketer {
     socket.join(room);
     const participants = this.io.sockets.adapter.rooms[room].length;
     this.io.in(room).emit('join room', participants);
+  }
+
+  sendQuestionInfo(data) {
+    this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('question info', data.question);
   }
 
   sendMsg (msg){
