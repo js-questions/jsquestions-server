@@ -67,7 +67,7 @@ exports.getAllQuestions = async (ctx, db) => {
     'offers.rejected ' +
     'FROM questions JOIN offers '+
     'ON questions.question_id = offers.linked_question '+
-    'WHERE offers.tutor=:target1 and offers.rejected = true or questions.answered=true',
+    'WHERE offers.tutor=:target1 and (offers.rejected = true or questions.answered=true)',
     {
       replacements: {
         target1: prettyBearer.user_id
@@ -85,7 +85,7 @@ exports.getAllQuestions = async (ctx, db) => {
       }
       if (!question.dataValues['status']) question.dataValues['status'] = 'help-now'
 
-      if (question.learner !== prettyBearer.user_id) {
+      if (question.learner !== prettyBearer.user_id && (question.answered === false || question.dataValues['status'] === 'closed')) {
         return question;
       }
     })

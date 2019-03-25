@@ -1,6 +1,6 @@
 exports.mockUsers = [
   {
-    user_id: 1,
+    // user_id: 1,
     username: 'sue',
     firstName: 'Sue',
     lastName: 'Li',
@@ -13,7 +13,7 @@ exports.mockUsers = [
     updatedAt: 1553358946653,
   },
   {
-    user_id: 2,
+    // user_id: 2,
     username: 'juli',
     firstName: 'Julian',
     lastName: 'Gonzalez',
@@ -26,7 +26,7 @@ exports.mockUsers = [
     updatedAt: 1553358946653,
   },
   {
-    user_id: 3,
+    // user_id: 3,
     username: 'rod',
     firstName: 'Rodrigo',
     lastName: 'Alcala',
@@ -39,7 +39,7 @@ exports.mockUsers = [
     updatedAt: 1553358946653,
   },
   {
-    user_id: 4,
+    // user_id: 4,
     username: 'amber',
     firstName: 'Amber',
     lastName: 'Williams',
@@ -52,7 +52,7 @@ exports.mockUsers = [
     updatedAt: 1553358946653,
   },
   {
-    user_id: 5,
+    // user_id: 5,
     username: 'nat',
     firstName: 'Natalia',
     lastName: 'Ortiz',
@@ -65,7 +65,7 @@ exports.mockUsers = [
     updatedAt: 1553358946653,
   },
   {
-    user_id: 6,
+    // user_id: 6,
     username: 'learner',
     firstName: 'Alejandro',
     lastName: 'Learner',
@@ -78,7 +78,7 @@ exports.mockUsers = [
     updatedAt: 1553358946653,
   },
   {
-    user_id: 7,
+    // user_id: 7,
     username: 'tutor',
     firstName: 'Lady',
     lastName: 'Gaga',
