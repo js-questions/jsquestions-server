@@ -57,6 +57,11 @@ class Socketer {
         }
       })
     })
+
+    // CANCEL CALL
+    socket.on('cancel call', (tutor) => {
+      this.io.sockets.connected[this.db.onlineUsers[tutor]].emit('cancel call');
+    })
   }
 
   joinRoom(room, socket) {
