@@ -5,6 +5,13 @@ exports.postOneQuestion = async (ctx, db) => {
     const { title, description, resources, code } = ctx.request.body;
     const bearer = ctx.headers.authorization.split(' ');
     const prettyBearer = (jwt.decode(bearer[1]));
+    if (title.length > 220 || resources.length > 220 || code.length > 220) {
+      ctx.body = {
+        error: 'You have exceeded the maximum character limit.'
+      }
+      ctx.status = 400;
+      return;
+    }
 
     ctx.body = await db.Question.create({
       learner: prettyBearer.user_id,

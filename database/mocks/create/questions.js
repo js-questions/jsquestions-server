@@ -50,7 +50,7 @@ exports.mockQuestions = [
     title: 'Why Sequelize is lowercasing all my raw queries?',
     description: '',
     resources: 'http://docs.sequelizejs.com/',
-    code: "await db.sequelize.query('SELECT offers.offer_id, offers.tutor, questions.question_id, questions.learner, questions.answered_by FROM questions JOIN offers ON questions.question_id = offers.linked_question WHERE questions.question_id = :target AND offers.offer_id = questions.answered_by'",
+    code: "await db.sequelize.query('SELECT questions.learner, questions.answered_by FROM questions JOIN offers ON questions.question_id = offers.linked_question WHERE questions.question_id = :target AND offers.offer_id = questions.answered_by'",
     createdAt: 1553358946653,
     updatedAt: 1553358946653,
   },

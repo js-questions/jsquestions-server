@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     resources: DataTypes.STRING,
-    code: DataTypes.TEXT,
+    code: DataTypes.STRING,
     answered: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
