@@ -41,7 +41,7 @@ class Socketer {
     socket.on('editor', (data) => this.handleCodeSend(data, socket));
 
     // OFFLINE USER
-    socket.on('offline user', (user) => db.onlineUsers[user] = null);
+    socket.on('offline user', (user) => db.onlineUsers[user] = undefined);
 
     // UPDATE THE QUESTION OF THE CHAT
     socket.on('question info', (data) => this.sendQuestionInfo(data));
