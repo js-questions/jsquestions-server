@@ -78,7 +78,7 @@ class Socketer {
   }
 
   sendQuestionInfo(data) {
-    this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('question info', data.question);
+    this.db.onlineUsers[data.tutor] && this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('question info', data.question);
   }
 
   sendMsg (msg){
@@ -94,14 +94,14 @@ class Socketer {
 
   pushTutor (question) {
     // Emiting to an specific socketId
-    this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', question);
+    this.db.onlineUsers[question.tutor] && this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', question);
     // Recieving the tutor in the question data from the FE
     // Maybe it will be better to query the database to check who is
     // the tutor of the offer in answered_by
   }
 
   sentOffer (offer, learner_id) {
-    this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', offer);
+    this.db.onlineUsers[learner_id] && this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', offer);
   }
 
 }
