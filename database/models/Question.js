@@ -1,6 +1,12 @@
 'use strict';
+const uuid = require('uuid');
 
 module.exports = (sequelize, DataTypes) => {
+  const hooks = {
+    async beforeCreate (question) {
+      question.room_id = uuid.v4();
+    },
+  };
   const tableName = 'questions';
   const Question = sequelize.define('Question', {
     question_id: {
@@ -26,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false,
     },
     room_id: DataTypes.UUID,
-  }, { tableName });
+  }, { hooks, tableName });
   Question.associate = (models) => {
     Question.belongsTo(models.User, { foreignKey: 'learner', targetKey: 'user_id' });
     Question.belongsTo(models.Offer, { foreignKey: 'answered_by', constraints: false });
