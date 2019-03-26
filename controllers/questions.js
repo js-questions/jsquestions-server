@@ -166,14 +166,14 @@ exports.closeQuestion = async (ctx, db) => {
 
     const { karma, credits: tokens } = ctx.request.body;
     const target = ctx.params.questionid;
-    const participants = await db.sequelize.query('SELECT offers.offer_id, offers.tutor, questions.question_id, questions.learner, questions.answered_by FROM questions JOIN offers ON questions.question_id = offers.linked_question WHERE questions.question_id = :target AND offers.offer_id = questions.answered_by',
+    const participants = await db.sequelize.query('SELECT users.user_id, users.credits, offers.offer_id, offers.tutor, questions.question_id, questions.learner, questions.answered_by FROM questions JOIN offers ON questions.question_id = offers.linked_question JOIN users ON questions.learner = users.user_id WHERE questions.question_id = :target AND offers.offer_id = questions.answered_by',
     {
       replacements: { target: target }, type: db.sequelize.QueryTypes.SELECT
     })
-
+    
     if (participants.length === 1) {
       await db.User.decrement({
-        credits: tokens
+        credits: participants[0].credits - tokens >= 0 ? tokens : participants[0].credits
       },
       {
         where: {

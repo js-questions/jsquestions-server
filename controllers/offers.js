@@ -82,7 +82,8 @@ exports.getQuestionOffers = async (ctx, db) => {
 
     const offers = await db.Offer.findAll({
       where: {
-        linked_question: ctx.params.questionid
+        linked_question: ctx.params.questionid,
+        rejected: false
       }
     })
     ctx.body = { question: question, offers: offers };
