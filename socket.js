@@ -47,7 +47,7 @@ class Socketer {
     socket.on('question info', (data) => this.sendQuestionInfo(data));
 
     // PUSH MESSAGE TO TUTOR
-    socket.on('chat now', (question) => this.pushTutor(question, socket))
+    socket.on('chat now', ({ question, learner }) => this.pushTutor(question, learner, socket))
     
     // HANG UP
     socket.on('hang up', ({ roomId }) => {
@@ -95,9 +95,9 @@ class Socketer {
     this.io.to(data.room).emit('editor', data);
   }
 
-  pushTutor (question) {
+  pushTutor (question, learner) {
     // Emiting to an specific socketId
-    this.db.onlineUsers[question.tutor] && this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', question);
+    this.db.onlineUsers[question.tutor] && this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', { question, learner });
     // Recieving the tutor in the question data from the FE
     // Maybe it will be better to query the database to check who is
     // the tutor of the offer in answered_by
