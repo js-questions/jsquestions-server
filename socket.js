@@ -36,6 +36,9 @@ class Socketer {
     // CHAT
     socket.on('chat message', (msg) => this.sendMsg(msg, socket));
 
+    // UPDATE KARMA
+    socket.on('update karma', (data) => this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('update karma', data));
+
     // EDITOR
     socket.emit('newUser', this.editor);
     socket.on('editor', (data) => this.handleCodeSend(data, socket));
