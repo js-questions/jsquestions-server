@@ -86,6 +86,7 @@ exports.getQuestionOffers = async (ctx, db) => {
         rejected: false
       }
     })
+
     ctx.body = { question: question, offers: offers };
     ctx.status = 200;
 
