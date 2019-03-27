@@ -74,21 +74,39 @@ exports.getQuestionOffers = async (ctx, db) => {
 
   try {
 
+    const max = await db.Question.max('question_id')
+    console.log(max);
+
+    if (ctx.params.questionid > max || ctx.params.questionid <= 0) {
+      ctx.body = { error: 'Not found' }
+      ctx.status = 404;
+      return;
+    }
+    
+    const bearer = ctx.headers.authorization.split(' ');
+    const prettyBearer = (jwt.decode(bearer[1]));
     const question = await db.Question.findOne({
       where: {
         question_id: ctx.params.questionid
       }
     })
+    
+    if (prettyBearer.user_id === question.learner) {
+      const offers = await db.Offer.findAll({
+        where: {
+          linked_question: ctx.params.questionid,
+          rejected: false
+        }
+      })
+  
+      ctx.body = { question: question, offers: offers };
+      ctx.status = 200;
+    } else {
+      ctx.body = { error: 'Unathorized' }
+      ctx.status = 401;
+    }
 
-    const offers = await db.Offer.findAll({
-      where: {
-        linked_question: ctx.params.questionid,
-        rejected: false
-      }
-    })
 
-    ctx.body = { question: question, offers: offers };
-    ctx.status = 200;
 
   } catch (err) {
     console.log(err); // eslint-disable-line
