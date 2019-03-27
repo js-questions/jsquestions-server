@@ -43,11 +43,14 @@ class Socketer {
     socket.emit('newUser', this.editor);
     socket.on('editor', (data) => this.handleCodeSend(data, socket));
 
+    // OFFLINE USER
+    socket.on('offline user', (user) => db.onlineUsers[user] = undefined);
+
     // UPDATE THE QUESTION OF THE CHAT
     socket.on('question info', (data) => this.sendQuestionInfo(data));
 
     // PUSH MESSAGE TO TUTOR
-    socket.on('chat now', (question) => this.pushTutor(question, socket))
+    socket.on('chat now', ({ question, learner }) => this.pushTutor(question, learner, socket))
     
     // HANG UP
     socket.on('hang up', ({ roomId }) => {
@@ -68,6 +71,9 @@ class Socketer {
     socket.on('cancel call', (tutor) => {
       this.io.sockets.connected[this.db.onlineUsers[tutor]].emit('cancel call');
     })
+
+    // UPDATE OFFERS
+    socket.on('offer sent', ({ offer, learner_id }) => this.sentOffer(offer, learner_id, socket))
   }
 
   joinRoom(room, socket) {
@@ -78,7 +84,7 @@ class Socketer {
   }
 
   sendQuestionInfo(data) {
-    this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('question info', data.question);
+    this.db.onlineUsers[data.tutor] && this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('question info', data.question);
   }
 
   sendMsg (msg){
@@ -92,12 +98,16 @@ class Socketer {
     this.io.to(data.room).emit('editor', data);
   }
 
-  pushTutor (question) {
+  pushTutor (question, learner) {
     // Emiting to an specific socketId
-    this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', question);
+    this.db.onlineUsers[question.tutor] && this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', { question, learner });
     // Recieving the tutor in the question data from the FE
     // Maybe it will be better to query the database to check who is
     // the tutor of the offer in answered_by
+  }
+
+  sentOffer (offer, learner_id) {
+    this.db.onlineUsers[learner_id] && this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', offer);
   }
 
 }
