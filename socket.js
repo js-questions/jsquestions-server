@@ -107,7 +107,8 @@ class Socketer {
   }
 
   sentOffer (offer, learner_id) {
-    this.db.onlineUsers[learner_id] && this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', offer);
+    const updateTutor = { user_id: offer.tutor, available: this.db.onlineUsers[offer.tutor]};
+    this.db.onlineUsers[learner_id] && this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', { offer, updateTutor});
   }
 
 }
