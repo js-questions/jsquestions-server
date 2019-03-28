@@ -47,3 +47,15 @@ To get the containerID you need to run:
 ```bash
 docker ps
 ```
+
+
+
+##Available scripts
+
+### db:seed
+
+```bash
+npm run db:seed
+```
+
+ Populate the database with mock data.

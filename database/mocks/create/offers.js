@@ -2,7 +2,7 @@ exports.mockOffers = [
   {
     // offer_id: 1,
     // tutor: 2,
-    message: 'Yo me juntaba con Pablito cuando importaba TVs',
+    message: 'Million dollar idea.',
     // linked_question: 1,
     expiration: 1553367888079,
     createdAt: 1553358946653,
@@ -74,7 +74,7 @@ exports.mockOffers = [
   {
     // offer_id: 9,
     // tutor: 7,
-    message: 'I can helo you with that',
+    message: 'I can help you with that',
     // linked_question: 6,
     expiration: 1553367888079,
     createdAt: 1553358946653,

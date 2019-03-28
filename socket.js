@@ -36,15 +36,21 @@ class Socketer {
     // CHAT
     socket.on('chat message', (msg) => this.sendMsg(msg, socket));
 
+    // UPDATE KARMA
+    socket.on('update karma', (data) => this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('update karma', data));
+
     // EDITOR
     socket.emit('newUser', this.editor);
     socket.on('editor', (data) => this.handleCodeSend(data, socket));
+
+    // OFFLINE USER
+    socket.on('offline user', (user) => db.onlineUsers[user] = undefined);
 
     // UPDATE THE QUESTION OF THE CHAT
     socket.on('question info', (data) => this.sendQuestionInfo(data));
 
     // PUSH MESSAGE TO TUTOR
-    socket.on('chat now', (question) => this.pushTutor(question, socket))
+    socket.on('chat now', ({ question, learner }) => this.pushTutor(question, learner, socket))
     
     // HANG UP
     socket.on('hang up', ({ roomId }) => {
@@ -92,16 +98,17 @@ class Socketer {
     this.io.to(data.room).emit('editor', data);
   }
 
-  pushTutor (question) {
+  pushTutor (question, learner) {
     // Emiting to an specific socketId
-    this.db.onlineUsers[question.tutor] && this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', question);
+    this.db.onlineUsers[question.tutor] && this.io.sockets.connected[this.db.onlineUsers[question.tutor]].emit('push tutor', { question, learner });
     // Recieving the tutor in the question data from the FE
     // Maybe it will be better to query the database to check who is
     // the tutor of the offer in answered_by
   }
 
   sentOffer (offer, learner_id) {
-    this.db.onlineUsers[learner_id] && this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', offer);
+    const updateTutor = { user_id: offer.tutor, available: this.db.onlineUsers[offer.tutor]};
+    this.db.onlineUsers[learner_id] && this.io.sockets.connected[this.db.onlineUsers[learner_id]].emit('offer sent', { offer, updateTutor});
   }
 
 }
