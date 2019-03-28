@@ -5,13 +5,14 @@ FROM node:10
 WORKDIR /app
 
 # Add files from current to /app
-COPY package*.json /app/
+COPY package*.json ./
 
 # Install node packages
-RUN npm install --silent
+RUN npm install
 
 # Install netcat so wait-for.sh can be used for checking PostgreSQL readiness
-RUN apt-get update && apt-get install -y netcat
+# Change the approach to check it so I comment it out
+# RUN apt-get update && apt-get install -y netcat
 
 # Copy all other server files
 COPY . .
