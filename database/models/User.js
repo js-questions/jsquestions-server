@@ -2,12 +2,15 @@
 const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
+
   const hooks = {
     async beforeCreate (user) {
       user.password = await bcrypt.hash(user.password, +process.env.SALT);
-    },
+    }
   };
+
   const tableName = 'users';
+
   const User = sequelize.define('User', {
     user_id: {
       type: DataTypes.INTEGER,
@@ -51,4 +54,5 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   return User;
+
 };
