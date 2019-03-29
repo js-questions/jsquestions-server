@@ -12,10 +12,9 @@ const offersCtrl = require('./controllers/offers');
 router.post('/sign-up', (ctx, next) => authCtrl.signUp(ctx, db, next), (ctx) => authCtrl.logIn(ctx, db));
 router.get('/log-in', (ctx) => authCtrl.logIn(ctx, db));
 
-// router.use(verifyToken);
 router.get('/users', verifyToken, (ctx) => usersCtrl.getAllUsers(ctx, db));
 router.get('/users/:userId', verifyToken, (ctx) => usersCtrl.getOneUser(ctx, db));
-router.put('/me', verifyToken, (ctx) => usersCtrl.updateProfile(ctx, db))
+router.put('/me', verifyToken, (ctx) => usersCtrl.updateProfile(ctx, db));
 
 router.get('/questions', verifyToken, (ctx) => questionsCtrl.getAllQuestions(ctx, db));
 router.post('/questions', verifyToken, (ctx) => questionsCtrl.postOneQuestion(ctx, db));

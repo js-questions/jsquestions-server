@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
+
   const tableName = 'offers';
+
   const Offer = sequelize.define('Offer', {
     offer_id: {
       type: DataTypes.INTEGER,
@@ -24,4 +26,5 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   return Offer;
+
 };
