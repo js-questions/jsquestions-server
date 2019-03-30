@@ -16,6 +16,7 @@ exports.createOffer = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to create' }
     ctx.status = 500;
 
   }
@@ -75,6 +76,7 @@ exports.rejectOffer = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to update' }
     ctx.status = 500;
 
   }
@@ -122,6 +124,7 @@ exports.getQuestionOffers = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to retrieve' }
     ctx.status = 500;
 
   }
