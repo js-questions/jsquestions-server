@@ -40,7 +40,7 @@ exports.verifyToken = async (ctx, next) => {
 
   } else {
 
-    console.log('No authorization header');
+    ctx.body = JSON.stringify('No authorization header');
     ctx.status = 400;
 
   }
