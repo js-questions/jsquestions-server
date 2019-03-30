@@ -83,9 +83,9 @@ class Socketer {
     this.db.onlineUsers[data.tutor] && this.io.sockets.connected[this.db.onlineUsers[data.tutor]].emit('question info', data.question);
   }
 
-  handleCodeSend (data) {
+  handleCodeSend (data, socket) {
     this.editor.code = data.code;
-    this.io.to(data.room).emit('editor', data);
+    socket.to(data.room).emit('editor', data);
   }
 
   hangUp (roomId) {
