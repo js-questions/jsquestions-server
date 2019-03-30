@@ -1,6 +1,6 @@
 # JS-Questions - Back-end
 
-## Set-up the database
+## Set-up
 
 ### Install docker
 
@@ -16,41 +16,43 @@ If you don't have Homebrew installed (you should), you can download it from [Doc
 
 If it's your first time running Docker, open it from Applications, log-in (sign-up) and follow the steps there.
 
-### Run the development DB with docker:
+### Run the development server with docker:
+
+Run the following command from a terminal open in the root directory of the project (where the docker-compose.yml file is)
 
 ```bash
-docker run -p 5432:5432 -d \
-    -e POSTGRES_PASSWORD=suelings \
-    -e POSTGRES_USER=suelings \
-    -e POSTGRES_DB=js-questions-dev \
-    postgres:11
+docker-compose up
 ```
 
-This runs a container with PostgreSQL (v11). It passes 3 enviroment variables:
-- database name 'js-questions-dev',
-- user name 'suelings',
-- user password 'suelings'
+This will create a network with a node.js server and a PostgreSQL database.
 
-It also binds the port 5432 of the container with the port 5432 of the local machine.
+*If you'd like to know more about the container have a look at the docker-compose.yml file, it is very well commented.*
 
-** For now we don't have any persistent data
+### Execute the server's terminal
+
+In case you wanna run any of the available scripts, you will need to access the container's terminal.
+To do so, run the following comand in your local computer:
+
+```bash
+docker exec -it JSQ-Server /bin/bash
+```
 
 ### Execute the DB toolbox
 
-```bash
-docker exec -it [CONTAINER ID] psql -U suelings js-questions-dev
-```
-
-Replace [CONTAINER ID] for the ID of the PostgreSQL container.
-To get the containerID you need to run:
+If you have PostgreSQL installed in you machine, run the following command:
 
 ```bash
-docker ps
+psql -h localhost -d js-questions-dev -U suelings
+```
+
+Otherwise:
+
+```bash
+docker exec -it postgres psql -U suelings js-questions-dev
 ```
 
 
-
-##Available scripts
+## Available scripts
 
 ### db:seed
 
@@ -58,4 +60,4 @@ docker ps
 npm run db:seed
 ```
 
- Populate the database with mock data.
+Populate the database with mock data.
