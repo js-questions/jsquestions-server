@@ -26,6 +26,7 @@ exports.postOneQuestion = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to create' }
     ctx.status = 500;
 
   }
@@ -106,6 +107,7 @@ exports.getAllQuestions = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to retrieve' }
     ctx.status = 500;
 
   }
@@ -139,6 +141,7 @@ exports.getAllAskedQuestions = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to retrieve' }
     ctx.status = 500;
 
   }
@@ -180,6 +183,7 @@ exports.updateQuestionStatus = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to update' }
     ctx.status = 500;
 
   }
@@ -245,6 +249,7 @@ exports.closeQuestion = async (ctx, db) => {
   } catch (err) {
 
     console.log(err); // eslint-disable-line
+    ctx.body = { error: 'Failed to update' }
     ctx.status = 500;
 
   }
