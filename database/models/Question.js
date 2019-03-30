@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     answered_by: DataTypes.INTEGER,
     learner: DataTypes.INTEGER,
-    title:{
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
