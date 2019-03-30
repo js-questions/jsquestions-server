@@ -16,6 +16,25 @@ If you don't have Homebrew installed (you should), you can download it from [Doc
 
 If it's your first time running Docker, open it from Applications, log-in (sign-up) and follow the steps there.
 
+### .env file
+
+To run the server properly, you will need an .env file with some variables.
+Our recommendation is to create it with at least this variables:
+
+```bash
+SALT=11
+JWTSECRET=chabon
+SERVER_PORT=4000
+NODE_ENV=development
+POSTGRES_NAME=postgres
+POSTGRES_PORT=5432
+POSTGRES_PASSWORD=suelings
+POSTGRES_USER=suelings
+POSTGRES_DB=js-questions-dev
+```
+
+Feel free to change any value.
+
 ### Run the development server with docker:
 
 Run the following command from a terminal open in the root directory of the project (where the docker-compose.yml file is)
@@ -52,6 +71,7 @@ docker exec -it postgres psql -U suelings js-questions-dev
 ```
 
 
+
 ## Available scripts
 
 ### db:seed
@@ -60,4 +80,4 @@ docker exec -it postgres psql -U suelings js-questions-dev
 npm run db:seed
 ```
 
-Populate the database with mock data.
+Populate the database with mock data. All mock files are inside of /database/mocks.
