@@ -1,4 +1,4 @@
-# JS-Questions - Back-end
+# JS-Questions back-end
 
 ## Set-up
 
@@ -33,7 +33,7 @@ POSTGRES_USER=suelings
 POSTGRES_DB=js-questions-dev
 ```
 
-Feel free to change any value.
+Feel free to change any value as you see fit.
 
 ### Run the development server with docker:
 
@@ -47,10 +47,13 @@ This will create a network with a node.js server and a PostgreSQL database.
 
 *If you'd like to know more about the container have a look at the docker-compose.yml file, it is very well commented.*
 
+
+
+## Extras
+
 ### Execute the server's terminal
 
-In case you wanna run any of the available scripts, you will need to access the container's terminal.
-To do so, run the following comand in your local computer:
+In case you want to access the container's terminal, run the following command in your local computer:
 
 ```bash
 docker exec -it JSQ-Server /bin/bash
@@ -64,17 +67,26 @@ If you have PostgreSQL installed in you machine, run the following command:
 psql -h localhost -d js-questions-dev -U suelings
 ```
 
-Otherwise:
+If you DO NOT have PostgreSQL installed in you machine:
 
 ```bash
 docker exec -it postgres psql -U suelings js-questions-dev
 ```
 
+### Clean the database
 
+Access the index.js file in the root directory and make note of the two commented out lines at the bottom file.
+If you uncomment them and while running the server, it will drop all the tables and create them back again.
 
-## Available scripts
+This will leave you with a database so clean that you can eat out of it.
+**Make sure to recomment them back out after it is cleaned**
 
 ### db:seed
+
+This command is executed as one of the steps of docker's set-up process.
+
+If you reset the database and would like some mock data back in it, this is your command.
+Run it from the server's terminal (how-to in the first point of the Extras section in this file)
 
 ```bash
 npm run db:seed
