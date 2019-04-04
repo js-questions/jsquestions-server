@@ -18,7 +18,7 @@ services:
     # Let the server know that it depends on the database, so that it can connect
     depends_on:
       - postgres
-    # Connect to the barq network
+    # Connect to the JSQ-net network
     networks:
       - JSQ-net
     # Define the ports on which the local machine will be able to access the server (local:container)
@@ -39,16 +39,16 @@ services:
     # Found this other script on StackOverflow to wait for the db to be ready and then start the server
     command: bash -c 'while !</dev/tcp/${POSTGRES_NAME}/${POSTGRES_PORT}; do sleep 1; done; npm start'
      
-  # Set up the mongo db for the backoffice services
+  # Set up the postgres db
   postgres:
-    # Use the official latest stable mongo image
+    # Use the official postgres v11 image
     image: postgres:11
     # Set the container name
     container_name: ${POSTGRES_NAME}
     # Designate a local directory to persist data
     volumes:
      - ./data/${POSTGRES_NAME}:/data/${POSTGRES_NAME}
-    # Connect to the barq network
+    # Connect to the JSQ-net network
     networks:
       - JSQ-net
     # Expose the correct port for connections
