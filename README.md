@@ -1,5 +1,15 @@
 # JS-Questions back-end
 
+
+## Table of contents
+
+- [Set-up](#Set-up)
+- [Extras](#Extras)
+- [Tech Stack](#tech-stack)
+- [Developers team](#developers-team)
+
+
+
 ## Set-up
 
 ### Install docker
@@ -44,6 +54,10 @@ docker-compose up
 ```
 
 This will create a network with a node.js server and a PostgreSQL database.
+**We higly recommend populating the database with the provided mock data, following this steps**
+[Execute the server's terminal](#Execute-the-server's-terminal)
+[db:seed](#db:seed)
+
 
 *If you'd like to know more about the container have a look at the docker-compose.yml file, it is very well commented.*
 
@@ -93,3 +107,25 @@ npm run db:seed
 ```
 
 Populate the database with mock data. All mock files are inside of /database/mocks.
+
+
+## Tech Stack
+
+- [Node\.js](https://nodejs.org/en/) + [Koa\.js](https://koajs.com/)
+- [Socket\.io](https://socket.io/)
+- [PostgreSQL](https://www.postgresql.org/) + [Sequelize\.js](http://docs.sequelizejs.com/)
+- [Docker](https://www.docker.com/)
+
+
+
+## Development team
+
+Amber Williams - [GitHub](https://github.com/Amber-Williams) - [LinkedIn](https://www.linkedin.com/in/amber-williams-dev/)
+
+Sue Li - [GitHub](https://github.com/zsli16) - [LinkedIn](https://www.linkedin.com/in/sueli88/)
+
+Natalia Ortiz - [GitHub](https://github.com/nataliaero) - [LinkedIn](https://www.linkedin.com/in/natalia-ortiz-gomez/)
+
+Julián González - [GitHub](https://github.com/1971S) - [LinkedIn](https://www.linkedin.com/in/jgpicatoste/)
+
+Rodrigo Alcala - [GitHub]( https://github.com/rodalcala) - [LinkedIn](https://www.linkedin.com/in/rodrigoalcala/)
