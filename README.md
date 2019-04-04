@@ -95,6 +95,11 @@ If you uncomment them and while running the server, it will drop all the tables 
 This will leave you with a database so clean that you can eat out of it.
 **Make sure to recomment them back out after it is cleaned**
 
+### Postman collection
+
+This repository includes a Postman collection to test the API.
+To install it click the "Import" button on the top left corner of Postman and select the postman-collection.json file of the root directory.
+
 ### db:seed
 
 This command is executed as one of the steps of docker's set-up process.
