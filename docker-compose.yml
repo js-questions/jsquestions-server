@@ -1,0 +1,68 @@
+# Use version 3 of docker-compose (latest at time of writing)
+version: '3'
+
+# Define the services
+services:
+
+  # Set up the service for the server
+  server:
+    # Build the current directory
+    build: .
+    # Map all the files in the current directory to the working directory in the conteiner
+    # and ensure that node_modules aren't unnecessarily copied by creating the folder explicitly
+    volumes:
+      - ./:/app
+      - /app/node_modules/
+    # Set the container name
+    container_name: JSQ-Server
+    # Let the server know that it depends on the database, so that it can connect
+    depends_on:
+      - postgres
+    # Connect to the JSQ-net network
+    networks:
+      - JSQ-net
+    # Define the ports on which the local machine will be able to access the server (local:container)
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    # Define the environment variables based on local .env
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - SERVER_PORT=${SERVER_PORT}
+      - JWTSECRET=${JWTSECRET}
+      - SALT=${SALT}
+      - POSTGRES_NAME=${POSTGRES_NAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+    # Make sure to keep restarting the server
+    restart: always
+    # Run the appropriate command for starting the server when ready
+    # command: ./scripts/wait-for.sh ${POSTGRES_NAME}:${POSTGRES_PORT} -- npm start
+    # Found this other script on StackOverflow to wait for the db to be ready and then start the server
+    command: bash -c 'while !</dev/tcp/${POSTGRES_NAME}/${POSTGRES_PORT}; do sleep 1; done; npm start'
+     
+  # Set up the postgres db
+  postgres:
+    # Use the official postgres v11 image
+    image: postgres:11
+    # Set the container name
+    container_name: ${POSTGRES_NAME}
+    # Designate a local directory to persist data
+    volumes:
+     - ./data/${POSTGRES_NAME}:/data/${POSTGRES_NAME}
+    # Connect to the JSQ-net network
+    networks:
+      - JSQ-net
+    # Expose the correct port for connections
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    # Define the environment variables based on local .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    # Make sure to keep restarting the server if it fails
+    restart: always
+
+networks:
+
+  JSQ-net:
+    driver: bridge
