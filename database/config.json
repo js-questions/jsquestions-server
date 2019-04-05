@@ -16,11 +16,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "suelings",
-    "password": "suelings",
+    "use_env_variable": "DATABASE_URL",
+    "username": "postgres",
+    "password": null,
     "database": "js-questions-production",
-    "host": "postgres",
-    "port": 5432,
+    "host": "http://jsq-server.herokuapp.com",
     "dialect": "postgres"
   }
 }

@@ -27,7 +27,7 @@ app.use(router.routes());
   // await db.sequelize.drop();                 // drop db and
   // await db.sequelize.sync({ force: true });  // restart it
   await db.sequelize.sync();
-  server.listen(process.env.SERVER_PORT, async () => {
-    console.log(`Listening on port ${process.env.SERVER_PORT}`);
+  server.listen(process.env.PORT, async () => {
+    console.log(`Listening on port ${process.env.PORT}`);
   });
 })()
