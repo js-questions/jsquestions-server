@@ -23,11 +23,11 @@ services:
       - JSQ-net
     # Define the ports on which the local machine will be able to access the server (local:container)
     ports:
-      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${PORT}:${PORT}"
     # Define the environment variables based on local .env
     environment:
       - NODE_ENV=${NODE_ENV}
-      - SERVER_PORT=${SERVER_PORT}
+      - PORT=${PORT}
       - JWTSECRET=${JWTSECRET}
       - SALT=${SALT}
       - POSTGRES_NAME=${POSTGRES_NAME}
