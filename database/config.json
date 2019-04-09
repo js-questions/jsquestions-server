@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "suelings",
+    "password": "suelings",
+    "database": "js-questions-dev",
+    "host": "postgres",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "suelings",
+    "password": "suelings",
+    "database": "js-questions-test",
+    "host": "postgres",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "username": "postgres",
+    "password": null,
+    "database": "js-questions-production",
+    "host": "http://jsq-server.herokuapp.com",
+    "dialect": "postgres"
+  }
+}

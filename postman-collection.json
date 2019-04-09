@@ -1,0 +1,400 @@
+{
+	"info": {
+		"_postman_id": "27c71663-4eb7-42c8-968f-dd5c73f37829",
+		"name": "JS-Questions",
+		"description": "Collection of HTTP requests for JS-Questions backend server.\n\n\nNote: to use the protected routes you will have to update the token inside the collection's authorization section.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign-up",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"Sue\",\n\t\"email\": \"sue@lings.com\",\n\t\"password\": \"suelings\"\n}"
+				},
+				"url": {
+					"raw": "{{devUrl}}/sign-up",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log-in",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "suelings",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sue@lings.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/log-in",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"log-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/users",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/users/:userId",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a question",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Delete element of an array\",\n\t\"description\": \"How can I delete an specific element in an unsorted array?\",\n\t\"resources\": \"MDN\",\n\t\"code\": \"none\"\n}"
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all asked questions (by that user)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions/asked",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions",
+						"asked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update question's status",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"answeredBy\": 2\n}"
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions/:questionId",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions",
+						":questionId"
+					],
+					"variable": [
+						{
+							"key": "questionId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Close question (and rate)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"karma\": 3,\n  \"credits\": 50\n}"
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions/:questionId/feedback",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions",
+						":questionId",
+						"feedback"
+					],
+					"variable": [
+						{
+							"key": "questionId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an offer for a question",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"message\": \"I do it all the time\",\n\t\"expiration\": 1553112378136\n}"
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions/:questionId/offers",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions",
+						":questionId",
+						"offers"
+					],
+					"variable": [
+						{
+							"key": "questionId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get offers for a given question",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/questions/:questionId/offers",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"questions",
+						":questionId",
+						"offers"
+					],
+					"variable": [
+						{
+							"key": "questionId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject offer",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{devUrl}}/offers/:offerid/reject",
+					"host": [
+						"{{devUrl}}"
+					],
+					"path": [
+						"offers",
+						":offerid",
+						"reject"
+					],
+					"variable": [
+						{
+							"key": "offerid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6InN1ZSIsImZpcnN0TmFtZSI6IlN1ZSIsImxhc3ROYW1lIjoiTGkiLCJlbWFpbCI6InN1ZUBsaW5ncy5jb20iLCJjcmVkaXRzIjoyMzAsImthcm1hIjo2MSwiYXZhaWxhYmxlIjpudWxsLCJwcm9maWxlQmFkZ2UiOiJodHRwczovL2ltYWdlLmZsYXRpY29uLmNvbS9pY29ucy9wbmcvMTI4LzIzNS8yMzUzOTQucG5nIiwiY3JlYXRlZEF0IjoiMjAxOS0wMy0yM1QxNjozNTo0Ni42NTNaIiwidXBkYXRlZEF0IjoiMjAxOS0wMy0yOFQxNDo0MToyNS40NzlaIiwiaWF0IjoxNTUzOTQwNjgwLCJleHAiOjE1NTY1MzI2ODB9.Okx7gUbwGr59FhqUuqcCDlPipSd-317YfIIG4xoXXVM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c3e4a988-f8ff-439c-b20b-d32f4f5c125a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5d79f151-428c-4cf6-b2f1-1c52ca4df603",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a443fb7b-6371-4b33-82f7-fe39ded89f89",
+			"key": "devUrl",
+			"value": "http://localhost:4000",
+			"type": "string"
+		}
+	]
+}
