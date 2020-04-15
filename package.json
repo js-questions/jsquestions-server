@@ -39,7 +39,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "pg": "^7.9.0",
-    "sequelize": "^5.1.0",
+    "sequelize": "^5.15.1",
     "socket.io": "^2.2.0"
   }
 }
